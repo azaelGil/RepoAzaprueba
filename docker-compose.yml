@@ -1,0 +1,83 @@
+services:
+  app:
+    image: easyappointments-authaz:latest
+    container_name: ea_main_app
+    restart: always
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    environment:
+      TZ: "Europe/Madrid"
+    depends_on:
+      - db
+    volumes:
+      # 🔧 Config principal del sistema Authaz
+      - ./config.authaz.php:/var/www/html/config.php:rw
+      - ./config.authaz.php:/var/www/html/config.authaz.php:rw
+
+      # 🎨 Overrides CSS personalizados
+      - ./overrides/assets/css:/var/www/html/overrides/assets/css:ro
+
+      # 🧩 Overrides FRONTEND (layout y componentes de reservas)
+      - ./overrides/application/views/layouts/booking_layout.php:/var/www/html/application/views/layouts/booking_layout.php:ro
+      - ./overrides/application/views/components/booking_header.php:/var/www/html/application/views/components/booking_header.php:ro
+      - ./overrides/application/views/components/booking_footer.php:/var/www/html/application/views/components/booking_footer.php:ro
+      - ./overrides/application/views/components/booking_cancellation_frame.php:/var/www/html/application/views/components/booking_cancellation_frame.php:ro
+      - ./overrides/application/views/components/book_success.php:/var/www/html/application/views/components/book_success.php:ro
+      - ./overrides/application/views/pages/booking_confirmation.php:/var/www/html/application/views/pages/booking_confirmation.php:ro
+
+      # 🧩 Overrides STEP 1 y STEP 2 (NUEVOS)
+      - ./overrides/application/views/components/booking_type_step.php:/var/www/html/application/views/components/booking_type_step.php:ro
+      - ./overrides/application/views/components/booking_time_step.php:/var/www/html/application/views/components/booking_time_step.php:ro
+
+      # 🧩 Override booking.js (NUEVO)
+      - ./overrides/assets/js/pages/booking.js:/var/www/html/assets/js/pages/booking.js:ro
+      - ./overrides/assets/js/pages/booking.js:/var/www/html/assets/js/pages/booking.min.js:ro
+
+      # 🧩 Overrides BACKEND (panel administración)
+      - ./overrides/application/views/layouts/backend_layout.php:/var/www/html/application/views/layouts/backend_layout.php:ro
+      - ./overrides/application/views/layouts/account_layout.php:/var/www/html/application/views/layouts/account_layout.php:ro
+      - ./overrides/application/views/layouts/message_layout.php:/var/www/html/application/views/layouts/message_layout.php:ro
+      - ./overrides/application/views/components/backend_header.php:/var/www/html/application/views/components/backend_header.php:ro
+      - ./overrides/application/views/components/backend_footer.php:/var/www/html/application/views/components/backend_footer.php:ro
+
+      # 📨 Overrides EMAILS
+      - ./overrides/application/config/email.php:/var/www/html/application/config/email.php:ro
+      - ./overrides/application/views/emails/appointment_details.php:/var/www/html/application/views/emails/appointment_details.php:ro
+      - ./overrides/application/views/emails/appointment_saved_email.php:/var/www/html/application/views/emails/appointment_saved_email.php:ro
+      - ./overrides/application/views/emails/account_recovery_email.php:/var/www/html/application/views/emails/account_recovery_email.php:ro
+      - ./overrides/application/views/emails/appointment_deleted_email.php:/var/www/html/application/views/emails/appointment_deleted_email.php:ro
+      - ./overrides/application/views/emails/partials/footer.php:/var/www/html/application/views/emails/partials/footer.php:ro
+
+      # 🔁 Overrides CONTROLADORES (Booking extendido)
+      - ./overrides/application/controllers/Booking.php:/var/www/html/application/controllers/Booking.php:ro
+
+      # 📅 Integración personalizada con Google Calendar
+      - ./overrides/application/libraries/Google_sync.php:/var/www/html/application/libraries/Google_sync.php:ro
+
+      # 🧩 Overrides de páginas específicas
+      - ./overrides/application/views/pages/reschedule_choice.php:/var/www/html/application/views/pages/reschedule_choice.php:ro
+      - ./overrides/application/views/pages/login.php:/var/www/html/application/views/pages/login.php:ro        # Login Authaz
+      - ./overrides/application/views/pages/recovery.php:/var/www/html/application/views/pages/recovery.php:ro  # Recovery Authaz
+      - ./overrides/application/views/pages/logout.php:/var/www/html/application/views/pages/logout.php:ro      # Logout Authaz
+
+      # 🖼️ Overrides LOGOS
+      - ./overrides/assets/img/logo.png:/var/www/html/assets/img/logo.png:rw
+      - ./overrides/assets/img/logo-16x16.png:/var/www/html/assets/img/logo-16x16.png:rw
+      - ./overrides/assets/img/alextselegidis-logo-16x16.png:/var/www/html/assets/img/alextselegidis-logo-16x16.png:rw
+      - ./overrides/assets/img/social-card.png:/var/www/html/assets/img/social-card.png:rw
+      - ./overrides/assets/img/favicon.ico:/var/www/html/assets/img/favicon.ico:rw
+      - ./overrides/assets/img/custom.jpg:/var/www/html/assets/img/custom.jpg:rw
+
+  db:
+    image: mysql:5.7
+    container_name: ea_main_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: RootPassword_Main_ChangeMe
+      MYSQL_DATABASE: ea_main
+      MYSQL_USER: easyuser_main
+      MYSQL_PASSWORD: EasyPass_Main_ChangeMe
+    volumes:
+      - ./db:/var/lib/mysql

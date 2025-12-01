@@ -1,0 +1,89 @@
+/* === ESQUINAS REDONDAS EN LA PÁGINA DE RESERVA === */
+
+#book-appointment-wizard .btn,
+#book-appointment-wizard .form-select,
+#book-appointment-wizard .form-control {
+    border-radius: 0.6rem !important;
+}
+
+/* Píldoras de empleado */
+#provider-step2-pills .provider-pill {
+    border-radius: 999px !important;
+    padding: 0.45rem 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ============================= */
+/* === CALENDARIO FLATPICKR === */
+/* ============================= */
+
+.flatpickr-calendar {
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+}
+
+.flatpickr-day {
+    border-radius: 0.5rem !important;
+}
+
+/* Eliminar flechas y piquito */
+.flatpickr-calendar .flatpickr-months .flatpickr-prev-month,
+.flatpickr-calendar .flatpickr-months .flatpickr-next-month {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.flatpickr-calendar::before,
+.flatpickr-calendar::after {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* ============================= */
+/* === HORAS DISPONIBLES ======= */
+/* ============================= */
+
+#available-hours .available-hour,
+#available-hours .available-hour.selected-hour {
+    border-radius: 0.7rem !important;
+}
+
+/* ============================= */
+/* === OCULTAR ZONA HORARIA ==== */
+/* ============================= */
+
+#select-timezone,
+label[for="select-timezone"] {
+    display: none !important;
+}
+
+/* ============================= */
+/* === ARREGLAR ESPACIO EN PC === */
+/* ============================= */
+
+#book-appointment-wizard {
+    min-height: auto !important;
+    padding-bottom: 20px !important;
+}
+
+.wizard-frame {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.frame-container {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+body {
+    min-height: auto !important;
+}
+
+#footer-container {
+    margin-top: 20px !important;
+    padding-top: 10px !important;
+}

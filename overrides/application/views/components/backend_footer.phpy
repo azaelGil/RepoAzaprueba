@@ -1,0 +1,76 @@
+<?php
+/**
+ * Local variables.
+ *
+ * @var string $user_display_name
+ */
+
+// Color dinámico de la empresa (brand color)
+$brandColor = setting('company_color') ?: '#138C73';
+?>
+<footer id="footer" class="footer mt-auto py-2 px-3 border-top bg-light shadow-sm text-center text-lg-start"
+        style="background:#f8f9fa;">
+
+    <div class="container-fluid d-flex flex-column flex-lg-row align-items-center justify-content-between gap-2">
+
+        <!-- Logo y versión -->
+        <div class="d-flex align-items-center text-muted small footer-left">
+            <img class="me-2" src="<?= base_url('assets/img/logo-16x16.png') ?>" alt="Authaz Systems Logo">
+            <span>Authaz Systems v<?= config('version') ?></span>
+        </div>
+
+        <!-- 📌 Botón “Ir a la página de reservas” con brandColor y más grande -->
+        <div>
+            <a href="<?= site_url('appointments') ?>"
+               class="btn fw-semibold shadow-sm"
+               style="
+                   background: <?= $brandColor ?>;
+                   color: #fff;
+                   padding: 8px 20px;
+                   border-radius: 25px;
+                   font-size: 14px;
+               ">
+                <i class="fas fa-calendar-alt me-2"></i>
+                <?= lang('go_to_booking_page') ?>
+            </a>
+        </div>
+
+        <!-- Saludo usuario -->
+        <div class="text-muted small fw-semibold footer-user">
+            <?= lang('hello') . ', ' . e($user_display_name) ?>!
+        </div>
+
+    </div>
+</footer>
+
+<style>
+/* 🔒 Ocultar cualquier selector de idioma que venga del core */
+#select-language,
+.footer-language,
+[id*="language"],
+.language-dropdown {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* 📱 Responsive móvil */
+@media (max-width: 576px) {
+
+    #footer {
+        padding: 6px 10px !important;
+    }
+
+    .footer-left {
+        display: none !important; /* Ocultamos logo+versión en móvil */
+    }
+
+    #footer .btn {
+        font-size: 13px !important;
+        padding: 7px 16px !important;
+    }
+
+    .footer-user {
+        font-size: 12px !important;
+    }
+}
+</style>

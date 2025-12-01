@@ -1,0 +1,194 @@
+/* =========================================================
+ * Authaz – Booking overrides
+ * Fondo degradado premium + wizard como tarjeta blanca
+ * ======================================================= */
+
+/* ----- Fondo general de la página de reservas ----- */
+
+/* Solo body, para que no "reinicie" en mitad */
+html {
+    height: 100%;
+    background: transparent;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #F5F7FB 0%, #ECEFFE 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* ---------- Contenedor principal del wizard ---------- */
+
+#book-appointment-wizard {
+    margin: 24px auto 32px auto;
+    padding: 24px 20px 28px;
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 18px 35px rgba(15, 23, 42, 0.10);
+}
+
+/* Ajuste responsive para pantallas pequeñas */
+@media (max-width: 767.98px) {
+    #book-appointment-wizard {
+        margin: 16px auto 24px auto;
+        padding: 18px 14px 22px;
+        border-radius: 18px;
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+    }
+}
+
+/* ---------- Cabecera de pasos (1–2–3–4) ---------- */
+
+#book-appointment-wizard .nav-pills {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+#book-appointment-wizard .nav-pills > li {
+    flex: 0 0 auto;
+}
+
+#book-appointment-wizard .nav-pills > li > a {
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    border-width: 0;
+    transition:
+        box-shadow 0.18s ease,
+        transform 0.06s ease;
+}
+
+#book-appointment-wizard .nav-pills > li > a:hover {
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+    transform: translateY(-1px);
+}
+
+/* ---------- Botones dentro del wizard ---------- */
+
+#book-appointment-wizard .btn {
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-weight: 500;
+    transition:
+        box-shadow 0.18s ease,
+        transform 0.06s ease,
+        background-color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+#book-appointment-wizard .btn:hover {
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.15);
+    transform: translateY(-1px);
+}
+
+#book-appointment-wizard .wizard-buttons {
+    margin-top: 24px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 575.98px) {
+    #book-appointment-wizard .wizard-buttons {
+        flex-direction: column;
+    }
+
+    #book-appointment-wizard .wizard-buttons .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ---------- Horas disponibles ---------- */
+
+#available-hours {
+    margin-top: 10px;
+}
+
+#available-hours button,
+#available-hours a {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    text-align: center;
+    transition:
+        box-shadow 0.18s ease,
+        transform 0.06s ease;
+}
+
+#available-hours button:hover,
+#available-hours a:hover {
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.15);
+    transform: translateY(-1px);
+}
+
+#available-hours .active,
+#available-hours .selected {
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.20);
+}
+
+/* ---------- Proveedores / chips ---------- */
+
+#book-appointment-wizard .provider-chip,
+#book-appointment-wizard .authaz-choice-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    margin: 0 6px 8px 0;
+    border-radius: 999px;
+    cursor: pointer;
+    border-width: 1px;
+    transition:
+        box-shadow 0.18s ease,
+        transform 0.06s ease,
+        background-color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+#book-appointment-wizard .provider-chip:hover,
+#book-appointment-wizard .authaz-choice-pill:hover {
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+    transform: translateY(-1px);
+}
+
+#book-appointment-wizard .provider-chip.active,
+#book-appointment-wizard .provider-chip.selected,
+#book-appointment-wizard .authaz-choice-pill.active,
+#book-appointment-wizard .authaz-choice-pill.selected {
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.22);
+}
+
+/* ---------- Ajustes varios ---------- */
+
+#book-appointment-wizard h2,
+#book-appointment-wizard h3 {
+    margin-bottom: 12px;
+}
+
+#book-appointment-wizard .step-description {
+    font-size: 14px;
+    margin-bottom: 18px;
+    opacity: 0.9;
+}
+
+#book-appointment-wizard .card,
+#book-appointment-wizard .panel {
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+@media (max-width: 991.98px) {
+    #book-appointment-wizard {
+        box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
+    }
+}
