@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php $brandColor = setting('company_color') ?: '#2a7a68'; ?>
 
 <div id="ea-success-wrapper" class="ea-success-wrapper">
     <div class="ea-success-card">
@@ -61,6 +62,7 @@
         padding: 2.5rem 2rem;
         box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
         text-align: center;
+        border: 1px solid rgba(15, 23, 42, 0.05);
     }
 
     /* ====== Icono moderno ====== */
@@ -74,11 +76,11 @@
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        background: radial-gradient(circle at 30% 30%, #6ee7b7, #22c55e);
+        background: radial-gradient(circle at 30% 30%, rgba(42, 122, 104, 0.85), <?= $brandColor ?>);
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 12px 32px rgba(34, 197, 94, 0.5);
+        box-shadow: 0 12px 32px rgba(42, 122, 104, 0.45);
     }
 
     .ea-success-check {
@@ -93,7 +95,7 @@
     /* ====== Tipografía ====== */
     .ea-success-title {
         font-size: 1.7rem;
-        font-weight: 700;
+        font-weight: 800;
         color: #0f172a;
         margin-bottom: 0.75rem;
     }
@@ -123,8 +125,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0.65rem 1.7rem;
-        border-radius: 999px;
+        padding: 0.75rem 1.8rem;
+        border-radius: 12px;
         font-size: 0.95rem;
         font-weight: 600;
         text-decoration: none;
@@ -133,14 +135,14 @@
     }
 
     .ea-success-btn-primary {
-        background: #2a7a68; /* Authaz verde */
+        background: <?= $brandColor ?>;
         color: #ffffff;
         box-shadow: 0 10px 28px rgba(42, 122, 104, 0.55);
         border: none;
     }
 
     .ea-success-btn-primary:hover {
-        background: #256a5b;
+        filter: brightness(0.95);
         color: #ffffff;
         transform: translateY(-1px);
         box-shadow: 0 14px 36px rgba(42, 122, 104, 0.6);

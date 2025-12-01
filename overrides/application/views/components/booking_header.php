@@ -31,36 +31,29 @@ if ($skipServiceStep) {
 }
 ?>
 
-<div id="header" class="container-fluid py-2 px-3"
-     style="background-color:<?= $brandColor ?>;border-radius:8px; overflow: hidden;">
-    <div class="row align-items-center">
-
-        <!-- Logo y nombre de empresa -->
-        <div class="col-md-5 col-sm-12 d-flex align-items-center">
-            <img src="<?= vars('company_logo') ?: base_url('assets/img/logo.png') ?>"
-                 alt="logo"
-                 id="company-logo"
-                 style="height:36px;width:auto;margin-right:10px;">
-
-            <div>
-                <span class="fw-bold text-white fs-5">
-                    <?= e($company_name) ?>
-                </span>
-                <div class="d-flex flex-wrap small text-white-50">
-                    <span class="display-selected-service me-1 pe-1 border-end invisible">
+<div id="header" class="booking-header" style="--brand-color: <?= $brandColor ?>;">
+    <div class="booking-header-inner">
+        <div class="booking-brand">
+            <div class="booking-logo-wrap">
+                <img src="<?= vars('company_logo') ?: base_url('assets/img/logo.png') ?>"
+                     alt="logo"
+                     id="company-logo"
+                     class="booking-logo">
+            </div>
+            <div class="booking-title-group">
+                <span class="booking-company"><?= e($company_name) ?></span>
+                <div class="booking-meta">
+                    <span class="display-selected-service booking-pill invisible">
                         <?= lang('service') ?>
                     </span>
-                    <span class="display-selected-provider invisible ms-1">
+                    <span class="display-selected-provider booking-pill invisible">
                         <?= lang('provider') ?>
                     </span>
                 </div>
             </div>
         </div>
 
-        <!-- Pasos numerados alineados horizontalmente -->
-        <div class="col-md-4 col-sm-12 text-center my-2 my-md-0" id="steps"
-             style="display: flex; justify-content: center; gap: 5px; overflow: hidden;">
-
+        <div class="booking-steps" id="steps">
             <?php if (!$skipServiceStep): ?>
                 <div id="step-1"
                      class="book-step active-step"
@@ -91,62 +84,151 @@ if ($skipServiceStep) {
                 <strong><?= $labelStep4 ?></strong>
             </div>
         </div>
-
     </div>
 </div>
 
 <style>
-#steps {
-    display: flex !important; /* Asegura que los pasos estén en una fila */
-    justify-content: center !important; /* Centra los pasos */
-    gap: 3px !important; /* Reducir aún más el espaciado entre los pasos */
-    flex-wrap: nowrap !important; /* Evita que se apilen en varias líneas */
-    overflow: hidden !important; /* Evita que aparezca una barra de desplazamiento */
-}
+    .booking-header {
+        background: linear-gradient(90deg, rgba(0,0,0,0.18), rgba(0,0,0,0.05)), var(--brand-color);
+        border-radius: 14px;
+        padding: 14px 16px;
+        color: #fff;
+        margin-bottom: 18px;
+        box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+    }
 
-.book-step {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 30px !important;  /* Hacer los pasos más pequeños */
-    height: 30px !important; /* Ajustar la altura para hacerlo más cuadrado */
-    color: white !important;
-    font-weight: bold !important;
-    border-radius: 5px !important; /* Bordes más redondeados */
-    transition: background-color 0.3s ease !important;
-    position: relative !important;
-}
+    .booking-header-inner {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
 
-/* Ocultamos el número interno por si el JS lo cambia */
-.book-step strong {
-    display: none !important;
-}
+    .booking-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 220px;
+    }
 
-/* Mostramos siempre el número "bueno" desde data-visual-step */
-.book-step::after {
-    content: attr(data-visual-step);
-    font-size: 15px;
-    font-weight: 700;
-}
+    .booking-logo-wrap {
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+    }
 
-/* Aseguramos que el último paso tenga el mismo tamaño */
-#steps .book-step:last-child {
-    margin-left: 0 !important;
-    width: 30px !important;
-}
+    .booking-logo {
+        height: 30px;
+        width: auto;
+        max-width: 120px;
+    }
 
-.book-step:hover {
-    background-color: #2295a1 !important;
-}
+    .booking-title-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
 
-.book-step.active-step {
-    background-color: rgba(17, 24, 39, 0.7) !important; /* color activo */
-    color: white !important;
-}
+    .booking-company {
+        font-weight: 700;
+        font-size: 1.05rem;
+        line-height: 1.2;
+    }
 
-.btn-lg {
-    padding: 0.5rem 1rem !important; /* Reducir tamaño de los botones */
-    font-size: 1.1rem !important; /* Reducir tamaño de la fuente */
-    border-radius: 0.25rem !important; /* Botón más redondeado */
-}
+    .booking-meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        color: rgba(255,255,255,0.85);
+        font-size: 0.85rem;
+    }
+
+    .booking-pill {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 4px 9px;
+        border-radius: 999px;
+        line-height: 1.2;
+    }
+
+    .booking-steps {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 10px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+        flex-wrap: nowrap;
+    }
+
+    .book-step {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 34px !important;
+        height: 34px !important;
+        color: #fff !important;
+        font-weight: 700 !important;
+        border-radius: 10px !important;
+        transition: transform 0.2s ease, background-color 0.25s ease !important;
+        position: relative !important;
+        background: rgba(255,255,255,0.08);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+    }
+
+    .book-step strong {
+        display: none !important;
+    }
+
+    .book-step::after {
+        content: attr(data-visual-step);
+        font-size: 0.95rem;
+        font-weight: 700;
+    }
+
+    #steps .book-step:last-child {
+        margin-left: 0 !important;
+    }
+
+    .book-step:hover {
+        background-color: rgba(255,255,255,0.18) !important;
+        transform: translateY(-1px);
+    }
+
+    .book-step.active-step {
+        background-color: rgba(255,255,255,0.22) !important;
+        color: #fff !important;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+    }
+
+    @media (max-width: 768px) {
+        .booking-header {
+            padding: 14px;
+        }
+
+        .booking-header-inner {
+            gap: 12px;
+        }
+
+        .booking-brand {
+            width: 100%;
+        }
+
+        .booking-steps {
+            width: 100%;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .book-step {
+            width: 32px !important;
+            height: 32px !important;
+        }
+    }
 </style>

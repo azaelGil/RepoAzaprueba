@@ -41,8 +41,22 @@
 
     <!-- FIX global para eliminar espacios en blanco y centrar -->
     <style>
+        :root {
+            --brand-color: <?= vars('company_color') ?: '#35A768' ?>;
+            --surface: #ffffff;
+            --surface-alt: #f4f7f9;
+            --text-main: #0f172a;
+            --text-muted: #6b7280;
+            --radius-lg: 22px;
+            --shadow-soft: 0 18px 38px rgba(15, 23, 42, 0.12);
+        }
+
         body {
-            background: #f7f7f9 !important;
+            background: radial-gradient(circle at 20% 20%, rgba(53, 167, 104, 0.08), transparent 32%),
+                        radial-gradient(circle at 80% 0%, rgba(53, 167, 104, 0.05), transparent 28%),
+                        #eef1f5 !important;
+            color: var(--text-main);
+            font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
         }
 
         #main {
@@ -55,19 +69,29 @@
         }
 
         #book-appointment-wizard {
-            background: white;
-            border-radius: 22px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            padding: 35px 35px 50px 35px;
-            margin-top: 40px;
-            margin-bottom: 40px !important;
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            padding: 38px 36px 50px 36px;
+            margin-top: 36px;
+            margin-bottom: 36px !important;
+            border: 1px solid rgba(15, 23, 42, 0.04);
+        }
+
+        @media (max-width: 992px) {
+            #book-appointment-wizard {
+                margin-top: 28px;
+                margin-bottom: 28px !important;
+                padding: 28px 26px 40px 26px;
+            }
         }
 
         @media (max-width: 768px){
             #book-appointment-wizard {
-                padding: 20px;
-                margin-top: 20px;
-                margin-bottom: 20px !important;
+                padding: 22px 18px 32px 18px;
+                margin-top: 22px;
+                margin-bottom: 22px !important;
+                border-radius: 18px;
             }
         }
     </style>
@@ -145,39 +169,39 @@
 <?php slot('scripts'); ?>
 
 <!-- ==== SPINNER GLOBAL ==== -->
-<div id="loadingSpinner" style="display:none;">
-    <div class="spinner"></div>
+<div id="loadingSpinner" class="authaz-spinner-overlay" style="display:none;">
+    <div class="authaz-spinner"></div>
 </div>
 
-<?php $brandColor = vars('company_color') ?: '#000000'; ?>
-
 <style>
-#loadingSpinner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255,255,255,0.85);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 99999;
-}
+    .authaz-spinner-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        backdrop-filter: blur(2px);
+    }
 
-.spinner {
-    border: 6px solid #ddd;
-    border-top: 6px solid <?= $brandColor ?>;
-    border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    animation: spin 0.9s linear infinite;
-}
+    .authaz-spinner {
+        border: 6px solid #e5e7eb;
+        border-top: 6px solid var(--brand-color);
+        border-radius: 50%;
+        width: 55px;
+        height: 55px;
+        animation: spin 0.9s linear infinite;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 
 <script>

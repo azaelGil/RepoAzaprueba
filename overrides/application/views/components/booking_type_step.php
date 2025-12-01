@@ -61,8 +61,8 @@ $stepTitle = ($rawTitle !== 'select_service_and_provider')
 ?>
 
 <div id="wizard-frame-1" class="wizard-frame">
-    <div class="frame-container">
-        <h2 class="frame-title mb-4">
+    <div class="frame-container service-step" style="--brand-color: <?= $brandColor ?>;">
+        <h2 class="frame-title mb-4 service-step__title">
             <?= htmlspecialchars($stepTitle, ENT_QUOTES, 'UTF-8') ?>
         </h2>
 
@@ -118,37 +118,33 @@ $stepTitle = ($rawTitle !== 'select_service_and_provider')
                         : $servicesCount . ' servicios';
                     ?>
                     <div class="service-category-block mb-4">
-                        <!-- Cabecera de categoría con flecha + contador -->
-                        <div class="d-flex justify-content-between align-items-center mb-1">
+                        <div class="category-header">
                             <button
                                 type="button"
-                                class="btn btn-link p-0 d-flex align-items-center category-toggle"
+                                class="category-toggle"
                                 data-target="#<?= htmlspecialchars($categoryIdAttr, ENT_QUOTES, 'UTF-8') ?>"
-                                style="text-decoration: none; color: #000;"
                             >
-                                <i class="fas fa-caret-down me-2 category-toggle-icon" style="color:#000;"></i>
-                                <span class="fw-bold fs-5 text-black">
+                                <i class="fas fa-caret-down me-2 category-toggle-icon"></i>
+                                <span class="category-title">
                                     <?= htmlspecialchars((string)$categoryName, ENT_QUOTES, 'UTF-8') ?>
                                 </span>
                             </button>
 
-                            <span class="small text-muted ms-2">
+                            <span class="category-meta">
                                 <?= htmlspecialchars($servicesLabel, ENT_QUOTES, 'UTF-8') ?>
                             </span>
                         </div>
 
                         <?php if ($categoryDesc !== ''): ?>
-                            <p class="category-description small text-muted ms-4 mb-2">
+                            <p class="category-description">
                                 <?= nl2br(htmlspecialchars($categoryDesc, ENT_QUOTES, 'UTF-8')) ?>
                             </p>
                         <?php endif; ?>
 
-                        <!-- Lista de servicios de la categoría -->
                         <div id="<?= htmlspecialchars($categoryIdAttr, ENT_QUOTES, 'UTF-8') ?>" class="category-services">
                             <div class="row g-3">
                                 <?php foreach ($servicesInCategory as $service): ?>
                                     <?php
-                                    // $service ya es array
                                     $id          = (int)($service['id'] ?? 0);
                                     $name        = (string)($service['name'] ?? '');
                                     $duration    = $service['duration'] ?? null;
@@ -160,42 +156,37 @@ $stepTitle = ($rawTitle !== 'select_service_and_provider')
                                     $hasPrice = ($price !== null && $price !== '' && is_numeric($price));
                                     ?>
                                     <div class="col-12">
-                                        <div
-                                            class="service-card border rounded-3 px-2 py-1 d-flex flex-row justify-content-between align-items-stretch"
-                                            style="min-height: 90px; font-size: 0.8rem;"
-                                        >
-                                            <!-- Columna izquierda: nombre + descripción + ubicación -->
-                                            <div class="flex-grow-1 pe-3 d-flex flex-column justify-content-center">
-                                                <h4 class="h6 mb-1">
+                                        <div class="service-card">
+                                            <div class="service-main">
+                                                <h4 class="service-name">
                                                     <?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>
                                                 </h4>
 
                                                 <?php if ($description !== ''): ?>
-                                                    <p class="mb-1 small text-muted">
+                                                    <p class="service-description">
                                                         <?= nl2br(htmlspecialchars($description, ENT_QUOTES, 'UTF-8')) ?>
                                                     </p>
                                                 <?php endif; ?>
 
                                                 <?php if ($location !== ''): ?>
-                                                    <div class="small text-muted">
+                                                    <div class="service-location">
                                                         <i class="fas fa-map-marker-alt me-1"></i>
                                                         <?= htmlspecialchars($location, ENT_QUOTES, 'UTF-8') ?>
                                                     </div>
                                                 <?php endif; ?>
                                             </div>
 
-                                            <!-- Columna derecha: precio + duración (a la izquierda) + botón -->
-                                            <div class="ms-3 d-flex align-items-center justify-content-end flex-shrink-0">
-                                                <div class="me-3 text-end">
+                                            <div class="service-actions">
+                                                <div class="service-meta text-end">
                                                     <?php if ($hasPrice): ?>
-                                                        <div class="fw-bold small">
+                                                        <div class="service-price">
                                                             <?= number_format((float)$price, 2, ',', '.') ?>
                                                             <?= $currency ? ' ' . htmlspecialchars($currency, ENT_QUOTES, 'UTF-8') : '' ?>
                                                         </div>
                                                     <?php endif; ?>
 
                                                     <?php if (!empty($duration)): ?>
-                                                        <div class="text-muted small">
+                                                        <div class="service-duration">
                                                             <?= (int)$duration . ' ' . lang('minutes') ?>
                                                         </div>
                                                     <?php endif; ?>
@@ -203,16 +194,8 @@ $stepTitle = ($rawTitle !== 'select_service_and_provider')
 
                                                 <button
                                                     type="button"
-                                                    class="btn btn-primary btn-select-service"
+                                                    class="btn btn-primary btn-select-service service-cta"
                                                     data-service-id="<?= $id ?>"
-                                                    style="
-                                                        background-color: <?= $brandColor ?>;
-                                                        border-color: <?= $brandColor ?>;
-                                                        border-radius: 8px;
-                                                        padding-inline: 12px;
-                                                        padding-block: 4px;
-                                                        font-size: 0.8rem;
-                                                    "
                                                 >
                                                     <?= 'Reservar' ?>
                                                 </button>
@@ -220,8 +203,8 @@ $stepTitle = ($rawTitle !== 'select_service_and_provider')
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
-                            </div> <!-- /.row -->
-                        </div> <!-- /.category-services -->
+                            </div>
+                        </div>
                     </div>
                 <?php endforeach; ?>
 
@@ -272,3 +255,206 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+
+<style>
+    .service-step {
+        --card-radius: 14px;
+    }
+
+    .service-step__title {
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .services-by-category {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .service-category-block {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: var(--card-radius);
+        padding: 16px 16px 10px 16px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .category-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .category-toggle {
+        border: none;
+        background: transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: #0f172a;
+        padding: 6px 0;
+        cursor: pointer;
+    }
+
+    .category-toggle:focus-visible {
+        outline: 2px solid var(--brand-color);
+        outline-offset: 2px;
+    }
+
+    .category-toggle-icon {
+        color: #0f172a;
+        transition: transform 0.2s ease;
+    }
+
+    .category-title {
+        font-size: 1.05rem;
+    }
+
+    .category-meta {
+        font-size: 0.9rem;
+        color: #6b7280;
+        background: #ffffff;
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid #e5e7eb;
+    }
+
+    .category-description {
+        margin: 4px 0 10px 0;
+        color: #6b7280;
+        font-size: 0.92rem;
+    }
+
+    .category-services {
+        margin-top: 6px;
+    }
+
+    .service-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 14px 16px;
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        gap: 14px;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .service-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .service-name {
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0;
+        color: #0f172a;
+    }
+
+    .service-description {
+        margin: 0;
+        color: #6b7280;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .service-location {
+        color: #6b7280;
+        font-size: 0.88rem;
+    }
+
+    .service-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .service-meta {
+        min-width: 120px;
+    }
+
+    .service-price {
+        font-weight: 700;
+        color: #0f172a;
+        font-size: 0.95rem;
+    }
+
+    .service-duration {
+        color: #6b7280;
+        font-size: 0.85rem;
+    }
+
+    .service-cta {
+        background: var(--brand-color);
+        border-color: var(--brand-color);
+        border-radius: 10px;
+        padding: 10px 16px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        box-shadow: 0 14px 24px rgba(53, 167, 104, 0.3);
+    }
+
+    .service-cta:hover {
+        filter: brightness(0.95);
+        color: #fff;
+    }
+
+    .service-cta:focus-visible {
+        outline: 3px solid rgba(53, 167, 104, 0.4);
+        outline-offset: 2px;
+    }
+
+    @media (max-width: 768px) {
+        .category-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .category-meta {
+            align-self: flex-start;
+        }
+
+        .service-card {
+            flex-direction: column;
+        }
+
+        .service-actions {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .service-meta {
+            text-align: left;
+        }
+
+        .service-cta {
+            width: auto;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .service-actions {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .service-cta {
+            width: 100%;
+            text-align: center;
+        }
+
+        .category-meta {
+            width: 100%;
+            text-align: left;
+        }
+    }
+</style>

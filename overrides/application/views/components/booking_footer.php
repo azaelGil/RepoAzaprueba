@@ -9,26 +9,34 @@
 <style>
     /* ===== Footer reserva Authaz ===== */
     #frame-footer {
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-        background: #f9fafb;
+        border-top: 1px solid rgba(0, 0, 0, 0.04);
+        background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
         font-size: 0.85rem;
         color: #6b7280;
+        padding: 0.85rem 1.25rem;
+        border-radius: 0 0 14px 14px;
+        display: flex;
+        justify-content: flex-end;
     }
 
     #frame-footer small {
         color: #6b7280;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
     }
 
     /* Botón backend con color de marca (brandColor) */
     #frame-footer .backend-link {
-        border-radius: 999px;
+        border-radius: 10px;
         border: none;
-        background: var(--brand-color, #35A768); /* variable de marca */
+        background: var(--brand-color, #35A768);
         color: #ffffff !important;
-        font-weight: 600;
-        font-size: 0.85rem;
-        padding: 0.4rem 1.2rem;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 0.5rem 1.2rem;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
         display: inline-flex;
         align-items: center;
         text-decoration: none;
@@ -42,7 +50,7 @@
     #frame-footer .backend-link:hover {
         opacity: 0.96;
         transform: translateY(-1px);
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
     }
 
     /* Adaptación a móvil */
@@ -50,11 +58,12 @@
         #frame-footer {
             padding-right: 1rem !important;
             padding-left: 1rem !important;
+            justify-content: center;
         }
 
         #frame-footer small {
             width: 100%;
-            justify-content: flex-end;
+            justify-content: center;
         }
 
         #frame-footer .backend-link {
